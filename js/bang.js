@@ -1,13 +1,3 @@
-// var bangDict = {
-//   amazonBang: '!a',
-//   googleBang: '!g',
-//   bingBang: '!b',
-//   wikipediaBang: '!w',
-//   youtubeBang: '!yt',
-//   googleMapsBang: '!gm',
-//   googleScholarBang: '!gs'
-// }
-
 chrome.webRequest.onBeforeRequest.addListener(
 
   function (details) {
