@@ -4,11 +4,14 @@ chrome.webRequest.onBeforeRequest.addListener(
     var requestUrl = decodeURI(details.url).replace(' ', '+')
     var websiteFound = hasValidBang(requestUrl)
     if (websiteFound) {
-      var search = parseSearchRequest(requestUrl, websiteFound.bang)
-      if (search === websiteFound.bang) {
-        return {redirectUrl: details.url = websiteFound.baseUrl}
-      } else {
-        return {redirectUrl: details.url = websiteFound.fullUrl() + search}
+      var search = parseSearchRequest(requestUrl)
+      // if (search === websiteFound.bang) {
+      //   return {redirectUrl: details.url = websiteFound.baseUrl}
+      // } else {
+      //   return {redirectUrl: details.url = websiteFound.fullUrl() + search}
+      // }
+      console.log(search)
+      return {redirectUrl: details.url = 'https://www.duckduckgo.com/?q=' + search
       }
     }
   },
@@ -18,23 +21,19 @@ chrome.webRequest.onBeforeRequest.addListener(
   ['blocking']
 )
 
-function parseSearchRequest (url, bang) {
+function parseSearchRequest (url) {
   var searchRequest = url.substring(url.lastIndexOf('q=') + 2)
   searchRequest = searchRequest.substring(0, searchRequest.indexOf('&'))
   searchRequest = searchRequest.toLowerCase()
 
-  searchRequest = searchRequest.replace(bang + '+', '')
-  searchRequest = searchRequest.replace('+' + bang, '')
+  /* searchRequest = searchRequest.replace(bang + '+', '')
+  searchRequest = searchRequest.replace('+' + bang, '') */
 
   return searchRequest
 }
 
 function hasValidBang (requestUrl) {
-  for (var i in websites) {
-    if (requestUrl.includes(websites[i].bang + '+') || requestUrl.includes(websites[i].bang + '&')) {
-      return websites[i]
-    } else if (requestUrl.slice(-Math.abs(websites[i].bang.length)) === websites[i].bang) {
-      return websites[i]
-    }
+  if (/!([a-zA-Z])*\+/.test(requestUrl) || /\+!([a-zA-Z])*\&/.test(requestUrl)) {
+    return true
   }
 }
