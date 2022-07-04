@@ -2,14 +2,13 @@
   "manifest_version": 2,
  
   "name": "!Bang Quick Search",
-  "description": "DuckDuckGo like !bang quick search",
-  "version": "1.1",
+  "description": "DuckDuckGo !bang quick search",
+  "version": "1.6",
   "author": "Brian Dawson",
  
   "permissions": [
     "*://*.google.com/*",
     "*://*.bing.com/*",
-    "storage",
     "webRequest",
     "webRequestBlocking"
   ],
