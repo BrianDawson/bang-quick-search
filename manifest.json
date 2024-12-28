@@ -1,26 +1,29 @@
 {
-  "manifest_version": 2,
- 
+  "manifest_version": 3,
   "name": "!Bang Quick Search",
   "description": "DuckDuckGo !bang quick search",
-  "version": "1.6",
+  "version": "2.0",
   "author": "Brian Dawson",
- 
   "permissions": [
-    "*://*.google.com/*",
-    "*://*.bing.com/*",
-    "webRequest",
-    "webRequestBlocking"
+    "declarativeNetRequest",
+    "scripting"
   ],
- 
+  "host_permissions": [
+    "*://*.google.com/*",
+    "*://*.bing.com/*"
+  ],
   "background": {
-    "scripts": ["js/bang.js"],
-    "persistent": true
+    "service_worker": "js/rules.js"
   },
- 
+  "content_scripts": [
+    {
+      "matches": ["*://*.google.com/*", "*://*.bing.com/*"],
+      "js": ["js/bang.js"]
+    }
+  ],
   "icons": {
-    "16":"images/bang.png",
-    "48":"images/bang.png",
-    "128":"images/bang.png"
+    "16": "images/bang.png",
+    "48": "images/bang.png",
+    "128": "images/bang.png"
   }
 }
